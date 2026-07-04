@@ -1,31 +1,31 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from app.config import settings
-from app.routers import health
+
+from app.api import auth_router, jwks_router
+from app.security.jwt import load_keys
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("Starting up Auth Service...")
+    # Initialize RSA key pair (loads keys from file or generates them if not present)
+    load_keys()
+    
+    yield
+    
+    print("Shutting down Auth Service...")
 
 app = FastAPI(
-    title=settings.app_name,
-    description="Microservice A for AlgoFlow_AI",
-    version="0.1.0",
-    debug=settings.debug
+    title="Authentication Service",
+    description="Authentication and Identity Microservice for RCE Platform",
+    version="1.0.0",
+    lifespan=lifespan
 )
 
-# CORS Middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# Register routes
+app.include_router(auth_router)
+app.include_router(jwks_router)
 
-# Include routers
-app.include_router(health.router)
-
-@app.get("/")
-async def root():
-    return {
-        "message": f"Welcome to {settings.app_name}!",
-        "docs_url": "/docs",
-        "health_check": "/health"
-    }
+@app.get("/health")
+async def health_check():
+    """Simple health check endpoint."""
+    return {"status": "ok", "service": "auth"}
