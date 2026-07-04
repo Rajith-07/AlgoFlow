@@ -144,3 +144,7 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# Cryptographic keys
+*.pem
+auth-service/keys/
