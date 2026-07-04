@@ -1,11 +1,11 @@
-# AlgoFlow AI Platform
+# AlgoFlow
 
-AlgoFlow AI is a microservices-based Remote Code Execution (RCE) and competitive programming platform. The project is structured as a monorepo containing independent services communicating asynchronously and secured via standard cryptographic protocols.
+AlgoFlow is a microservices-based Remote Code Execution (RCE) and competitive programming platform. The project is structured as a monorepo containing independent services communicating asynchronously and secured via standard cryptographic protocols.
 
 ## Repository Structure
 
 ```text
-AlgoFlow_AI/
+AlgoFlow/
 ├── auth-service/                  # Authentication & Identity Microservice (Port 8000)
 │   ├── app/                       # Core FastAPI application source code
 │   ├── keys/                      # RS256 signing keys (private.pem / public.pem)
@@ -30,7 +30,7 @@ AlgoFlow_AI/
 - **Port**: `8000`
 - **Tech Stack**: FastAPI, PostgreSQL, SQLAlchemy, Alembic, Argon2id, RS256 JWT.
 - **Responsibilities**: User signup, user login, token-based authentication, refresh token rotation, token revocation (logout), and public key publication via JWKS (`/.well-known/jwks.json`).
-- **Documentation**: See [auth-service/README.md](file:///d:/College/Portfolio%20Projects/AlgoFlow_AI/auth-service/README.md) for detailed setup and API specs.
+- **Documentation**: See [auth-service/README.md](file:///d:/College/Portfolio%20Projects/AlgoFlow_/auth-service/README.md) for detailed setup and API specs.
 
 ### 2. Submission Gateway Service (`submission-gateway-service`)
 - **Port**: `8001`
